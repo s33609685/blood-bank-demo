@@ -125,7 +125,6 @@
             <li>
                 <a href="regulations.html" data-toggle="ajax"> <span class="nav-label">法令法规</span></a>
             </li>
-
             <li>
                 <a href="javascript:;" ><span class="nav-label">用户管理</span><span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level">
@@ -350,6 +349,9 @@
         }())
 
     </script>
+=======
+
+>>>>>>> 1086bbe39a9f96e5caa2a3ef8634d7e1fb9650e2
 
 
     <!-- Footer-->
@@ -377,6 +379,71 @@
 <script src="scripts/homer.js"></script>
 
 <script>
+<<<<<<< HEAD
+=======
+    /* 16. Handle Ajax Page Load - added in V1.5
+    ------------------------------------------------ */
+    var default_content = '<div class="p-t-40 p-b-40 text-center f-s-20 content"><i class="fa fa-warning fa-lg text-muted m-r-5"></i> <span class="f-w-600 text-inverse">Error 404! Page not found.</span></div>';
+
+    var handleLoadPage = function(hash) {
+        //Pace.restart();
+        var targetUrl = hash.replace('#','');
+        $('.jvectormap-label, .jvector-label, .AutoFill_border ,#gritter-notice-wrapper, .ui-autocomplete, .colorpicker, .FixedHeader_Header, .FixedHeader_Cloned .lightboxOverlay, .lightbox').remove();
+        $.ajax({
+            type: 'POST',
+            url: targetUrl,	//with the page number as a parameter
+            dataType: 'html',	//expect html to be returned
+            success: function(data) {
+                $('#wrapper').html(data);
+                $('html, body').animate({
+                    scrollTop: $("body").offset().top
+                }, 250);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('#ajax-content').html(default_content);
+            }
+        });
+    };
+
+
+    /* 17. Handle Ajax Page Load Url - added in V1.5
+    ------------------------------------------------ */
+    var handleCheckPageLoadUrl = function(hash) {
+        hash = (hash) ? hash : '#component/dashboard.html';
+
+        if (hash === '') {
+            $('#ajax-content').html(default_content);
+        } else {
+            $('#side-menu [href="'+hash+'"][data-toggle=ajax]').trigger('click');
+            handleLoadPage(hash);
+        }
+    };
+
+
+    /* 18. Handle Ajax Sidebar Toggle Content - added in V1.5
+    ------------------------------------------------ */
+    var handleSidebarAjaxClick = function() {
+        $('.sidebar [data-toggle=ajax]').click(function() {
+            var targetLi = $(this).closest('li');
+            var targetParentLi = $(this).parents();
+            $('.sidebar li').not(targetLi).not(targetParentLi).removeClass('active');
+            $(targetLi).addClass('active');
+            $(targetParentLi).addClass('active');
+        });
+    };
+
+    /* 19. Handle Url Hash Change - added in V1.5
+    ------------------------------------------------ */
+    $(window).bind('hashchange', function() {
+        if (window.location.hash) {
+            handleLoadPage(window.location.hash);
+        }
+    })
+    $(function () {
+        window.location.hash = "#component/dashboard.html";
+        handleLoadPage(window.location.hash);
+    });
+>>>>>>> 1086bbe39a9f96e5caa2a3ef8634d7e1fb9650e2
 
 </script>
 
